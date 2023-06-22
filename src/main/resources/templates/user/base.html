@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, content)">
+<head>
+<meta charset="ISO-8859-1">
+<title th:replace="${title}"></title>
+
+<!-- font awesome links -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- bs4 cdn -->
+<link rel="stylesheet" th:href="@{/vendor/css/bootstrap.css}" />
+
+<!-- custom css -->
+<link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+</head>
+<body>
+
+	<!-- nav bar -->
+	<nav class="navbar navbar-expand-lg navbar-light  px-5">
+		<a class="navbar-brand" th:href="@{/home}"><img
+			th:src="@{/assets/img/logo.png}" class="logo" alt="logo" /></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<div class="search-box">
+				<input class="form-control mr-sm-2" onkeyup="searchContact()" id="searchContact" type="search" placeholder="Search Contact here..." aria-label="Search">
+				
+				<ul id="search-result-box">
+					
+				</ul>
+
+			</div>
+
+			<ul class="navbar-nav ml-auto text-uppercase">
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/user/home}">Home
+							<span class="sr-only">(current)</span>
+					</a>
+				</li>				
+				<li class="nav-item"><a class="nav-link" th:text="${user.name}" href="#">Login</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/signout}">Signout</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<!-- dashboard section starts -->
+	<div class="user-dash-box">
+		<!-- side bar -->
+		<div class="sidebar" id="sidebar">
+			<ul id="sidebar-links" >
+				<li th:classappend="${classActive == '/user/home'} ? 'active' : ''">
+					<a href="/user/home"> <i class="fa fa-home" aria-hidden="true"></i> Home</a>
+				</li>
+				<li th:classappend="${classActive == '/view-contacts'} ? 'active' : ''">
+					<a href="/user/view-contacts"> <i class="fa fa-address-book" aria-hidden="true"></i> View Contact</a>
+				</li>
+				<li th:classappend="${classActive == '/add-contact'} ? 'active' : ''">
+					<a href="/user/add-contact"> <i class="fa fa-user-plus" aria-hidden="true"></i> Add Contact</a>
+				</li>
+				<li>
+					<a href="#"> <i class="fa fa-user" aria-hidden="true"></i> Your Profile</a>
+				</li>
+				<li>
+					<a href="#"> <i class="fa fa-cogs" aria-hidden="true"></i> Setting</a>
+				</li>
+				<li>
+					<a href="#"> <i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+				</li>
+			</ul>
+			<div id="side-toggle">
+				<!-- nav toggle button -->
+				<div class="nav-btn" onclick="toggleFunction(this)">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+		</div>
+
+		<!-- content -->
+		<div class="content-box" id="content-box">
+			<div class="content">
+				
+				<!-- page contents here -->
+					<div th:replace="${content}"></div>
+				
+			</div>
+		</div>
+	</div>
+
+
+	<!-- dashboard design ends -->
+
+
+
+
+	<footer class="py-5">
+		<div class="container">
+			<div class="row">
+				<!-- about us -->
+				<div class="col-lg-4">
+					<div>
+						<img th:src="@{/assets/img/logo.png}" alt="logo" class="logo"><span style="font-size:20px; color: #1d89f2;font-weight: bold">Smart Contact Manager</span>
+						<p class="text-justify" style="color: #e3e3e3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam voluptates quae ducimus ipsa suscipit odio error aliquam sunt laudantium nulla sapiente quibusdam iure facilis nemo quos laborum officia tempora rerum.</p>
+					</div>
+				</div>
+				
+				<!-- links -->
+				<div class="col-lg-5">
+					<div class="row">
+						<div class="col-6">
+							<div class="foot-title">Links</div>
+							<ul class="foot-list">
+								<li><a href="">Home</a></li>
+								<li><a href="">About</a></li>
+								<li><a href="">Sign up</a></li>
+								<li><a href="">Contact Us</a></li>
+								<li><a href="">Who we are</a></li>
+							</ul>
+						</div>
+						<div class="col-6">
+							<div class="foot-title">Others</div>
+							<ul class="foot-list">
+								<li><a href="">Terms & Conditions</a></li>
+								<li><a href="">Privacy Policy</a></li>
+								<li><a href="">Portfolio</a></li>
+								<li><a href="">Corporate</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+				<!-- social links -->
+				<div class="col-lg-3">
+					<div class="foot-title">Socials</div>
+					<div class="foot-socials">
+						<a class="foot-s-link" href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+						<a class="foot-s-link" href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+						<a class="foot-s-link" href="#"><i class="fa fa-github-square" aria-hidden="true"></i></a>
+						<a class="foot-s-link" href="#"><i class="fa fa-youtube-square" aria-hidden="true"></i></a>
+					</div>
+					
+				</div>
+			</div>
+			
+			<div class="foot-bottom">
+				<div>
+					&copy; 2023 SCM. All Rights reserved
+				</div>
+				<div>
+					Developed by <span>Shubrato Debnath</span>
+				</div>
+			</div>
+			
+		</div>
+	</footer>
+
+	<!-- java script -->
+	<script type="text/javascript" th:src="@{/vendor/js/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/vendor/js/popper.min.js}"></script>
+	<script type="text/javascript" th:src="@{/vendor/js/bootstrap.min.js}"></script>
+	
+	<!-- sweet alert 2 -->
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<!-- custom JavaScript -->
+	<script type="text/javascript" th:src="@{/assets/js/main.js}"></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.thymeleaf.org"
+	th:fragment="layout(title,content)">
+<head>
+<meta charset="UTF-8" />
+<title th:replace="${title}"></title>
+
+<!-- font awesome links -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- bs4 cdn -->
+<link rel="stylesheet" th:href="@{/vendor/css/bootstrap.css}" />
+
+<!-- custom css -->
+<link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light  px-5">
+		<a class="navbar-brand" th:href="@{/home}"><img
+			th:src="@{/assets/img/logo.png}" class="logo" alt="logo" /></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto text-uppercase">
+				<li th:classappend="${classActive == '/home'} ? 'active' : ''" class="nav-item"><a class="nav-link" th:href="@{/home}">Home
+						<span class="sr-only">(current)</span>
+				</a></li>
+				<li th:classappend="${classActive == ''} ? 'active' : ''" class="nav-item"><a class="nav-link" href="/user/home">Link</a></li>
+				<li th:classappend="${classActive == '/signin' } ? 'active' : ''" class="nav-item"><a class="nav-link" th:href="@{/signin}" href="#">Login</a></li>
+				<li th:classappend="${classActive == '/signup' } ? 'active' : ''" class="nav-item"><a class="nav-link" th:href="@{/signup}">SignUp</a></li>				
+				
+			</ul>
+		</div>
+	</nav>
+
+
+	<div id="content" th:replace="${content}"></div>
+
+
+	<footer class="py-5">
+		<div class="container">
+			<div class="row">
+				<!-- about us -->
+				<div class="col-lg-4">
+					<div>
+						<img th:src="@{/assets/img/logo.png}" alt="logo" class="logo"><span style="font-size:20px; color: #1d89f2;font-weight: bold">Smart Contact Manager</span>
+						<p class="text-justify" style="color: #e3e3e3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam voluptates quae ducimus ipsa suscipit odio error aliquam sunt laudantium nulla sapiente quibusdam iure facilis nemo quos laborum officia tempora rerum.</p>
+					</div>
+				</div>
+				
+				<!-- links -->
+				<div class="col-lg-5">
+					<div class="row">
+						<div class="col-6">
+							<div class="foot-title">Links</div>
+							<ul class="foot-list">
+								<li><a href="">Home</a></li>
+								<li><a href="">About</a></li>
+								<li><a href="">Sign up</a></li>
+								<li><a href="">Contact Us</a></li>
+								<li><a href="">Who we are</a></li>
+							</ul>
+						</div>
+						<div class="col-6">
+							<div class="foot-title">Others</div>
+							<ul class="foot-list">
+								<li><a href="">Terms & Conditions</a></li>
+								<li><a href="">Privacy Policy</a></li>
+								<li><a href="">Portfolio</a></li>
+								<li><a href="">Corporate</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+				<!-- social links -->
+				<div class="col-lg-3">
+					<div class="foot-title">Socials</div>
+					<div class="foot-socials">
+						<a class="foot-s-link" href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+						<a class="foot-s-link" href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+						<a class="foot-s-link" href="#"><i class="fa fa-github-square" aria-hidden="true"></i></a>
+						<a class="foot-s-link" href="#"><i class="fa fa-youtube-square" aria-hidden="true"></i></a>
+					</div>
+					
+				</div>
+			</div>
+			
+			<div class="foot-bottom">
+				<div>
+					&copy; 2023 SCM. All Rights reserved
+				</div>
+				<div>
+					Developed by <span>Shubrato Debnath</span>
+				</div>
+			</div>
+			
+		</div>
+	</footer>
+
+	<!-- java script -->
+	<script type="text/javascript" th:src="@{/vendor/js/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/vendor/js/popper.min.js}"></script>
+	<script type="text/javascript" th:src="@{/vendor/js/bootstrap.min.js}"></script>
+
+	<!-- custom JavaScript -->
+	<script type="text/javascript" th:src="@{/assets/js/main.js}"></script>
+
+</body>
+</html>

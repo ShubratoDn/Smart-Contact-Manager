@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="user/base::layout(~{::title}, ~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Contact</title>
+</head>
+<body>
+
+	<section class="p-4">		
+		<!-- server message will show here -->
+		<th:block th:if="${serverMessage}">
+			<div class="alert " role="alert" th:classappend="${serverMessage.css}" th:text="${serverMessage.content}">				  
+			</div>
+		</th:block>
+
+		
+		<div th:if="${contact != null}">			
+			<div class="contact-img text-center my-4">
+				<img th:src="'/assets/img/contactImage/'+${contact.image}" th:alt="${contact.name}" />
+			</div>
+
+			<table class="table rounded overflow-hidden table-striped table-dark">				
+				<tbody >
+					<tr>
+						<th class="bg-dark text-white">Id</th>
+						<td th:text="${contact.con_id}"></td>						
+					</tr>
+					<tr>
+						<th class="bg-dark text-white">Name</th>
+						<td th:text="${contact.name}"></td>						
+					</tr>
+					<tr>
+						<th class="bg-dark text-white">Email</th>
+						<td th:text="${contact.email}"></td>						
+					</tr>
+					<tr>
+						<th class="bg-dark text-white">Work Place</th>
+						<td th:text="${contact.work_place}"></td>						
+					</tr>
+					<tr>
+						<th class="bg-dark text-white">About</th>
+						<td th:text="${contact.description}"></td>						
+					</tr>					
+				</tbody>
+			</table>
+			
+			<div class="d-flex">
+				<form th:action="@{/user/update-contact}" method="post">						
+					<button name="contact_id" th:value="${contact.con_id}" type="submit" title="Edit Profile" class="btn btn-success btn-lg m-2">Update Contact</button>							
+				</form>
+				<form th:onsubmit="'return deleteConfirmation(this, event,'+ ${contact.con_id} +')'">						
+					<!-- delete button -->
+					<button name="contact_id" th:value="${contact.con_id}" type="submit" title="Delete Profile" class="btn btn-danger btn-lg m-2">Delete Contact</button>
+				</form>
+			</div>
+			
+		</div>
+		
+		
+		<!-- jodi paoya na jay -->
+		<div th:unless="${contact != null}" style="height: 70vh;"  class="w-100  d-flex justify-content-center align-items-center">
+			<h1 class="text-danger display-2">404! Not Found</h1>
+		</div>
+		
+	</section>
+
+</body>
+</html>

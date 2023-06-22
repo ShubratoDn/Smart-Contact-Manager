@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.thymeleaf.org" th:replace="base::layout(~{::title}, ~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Sign in to SCM!</title>	
+</head>
+<body>
+	<section class="py-5">
+		<div class="container login-container">
+			<div class="row">
+				<div class="col-md-6 m-auto">
+					<h3 class="text-center">Sign in</h3>
+					<!-- Alerts -->
+					<div th:if="${param.error}" class="alert alert-danger">
+						<!-- param.error ... etar mane URL a error ache ki na check kortase -->
+						<strong>Error!</strong> Invalid User or Password
+					</div>
+					
+					<div th:if="${param.logout}" class="alert alert-success">
+						<!-- param.error ... etar mane URL a error ache ki na check kortase -->
+						Successfully logged out!
+					</div>
+					
+					<div th:if="${msg}" th:classappend="${msg.css}" th:utext="${msg.content}" class="alert">						
+					</div>
+					
+					
+					
+					<form method="post" th:action="@{/doSignin}">
+						<div class="form-group">
+							<input type="text" class="form-control"
+								placeholder="Your Email *" value="" name="username" />
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control"
+								placeholder="Your Password *" value="" name="password" />
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-outline-primary" value="Login" />
+						</div>
+						<div class="form-group">
+							<a th:href="@{/recover/forget-password}" class="ForgetPwd">Forget Password?</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>		
+	</section>
+
+</body>
+</html>

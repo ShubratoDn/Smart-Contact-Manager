@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="user/base::layout(~{::title}, ~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>My contacts</title>
+</head>
+<body>
+
+	<section class="p-4">
+	
+		<h1 class="text-center my-4">All contacts</h1>
+
+		<table class="table table-dark">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Image</th>
+					<th scope="col">Name</th>
+					<th scope="col">Phone</th>
+					<th scope="col">Address</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody class="contact-table-body">			
+				<tr th:if="${#lists.size(contacts) > 0}" th:each="contact: ${contacts}">
+					<td th:text="SCM + ${contact.con_id}"></td>
+					<td th:onclick="'contactPage(\'/user/contact/' + ${contact.con_id} + '\')'" >
+						<img 
+							style="height: 50px; width: 50px; border-radius: 50%; object-fit:cover;" 
+							th:src="@{/assets/img/contactImage/}+${contact.image}" 
+							th:alt="${contact.name}" />
+					</td>
+					<td th:onclick="'contactPage(\'/user/contact/' + ${contact.con_id} + '\')'"  th:text="${contact.name}"></td>
+					<td th:onclick="'contactPage(\'/user/contact/' + ${contact.con_id} + '\')'"  th:text="${contact.phone}"></td>
+					<td th:onclick="'contactPage(\'/user/contact/' + ${contact.con_id} + '\')'"  th:text="${contact.work_place}"></td>
+					<td class="d-flex">
+						<form th:action="@{/user/update-contact}" method="post">						
+							<button name="contact_id" th:value="${contact.con_id}" type="submit" title="Edit Profile" class="btn btn-success btn-sm m-1"><i class="fa fa-pencil" aria-hidden="true"></i></button>							
+						</form>
+						<form th:onsubmit="'return deleteConfirmation(this, event,'+ ${contact.con_id} +')'">						
+							<!-- delete button -->
+							<button name="contact_id" th:value="${contact.con_id}" type="submit" title="Delete Profile" class="btn btn-danger btn-sm m-1"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+						</form>
+					</td>
+				</tr>
+				
+				<tr th:unless="${#lists.size(contacts) > 0}">
+					<td colspan="6" class="text-center text-danger display-4">No data available</td>
+				</tr>
+								
+			</tbody>
+		</table>
+		
+		
+		<!-- pagination -->	
+		
+		<nav  aria-label="Page navigation example" class="mt-5">
+			<ul th:if="${#lists.size(contacts) > 0}" class="pagination justify-content-center">
+				<li th:if="${pageNo > 1}" class="page-item">
+					<a class="page-link" th:href="@{'/user/view-contacts/page/' + ${pageNo-1}}">Previous</a>
+				</li>				
+				
+				<li th:each="pageNo : ${#numbers.sequence(1,totalPage)}" class="page-item">
+					<a class="page-link" th:href="@{'/user/view-contacts/page/' + ${pageNo}}" th:text="${pageNo}"></a>
+				</li>			
+				
+				<li th:if="${pageNo < totalPage}" class="page-item">
+					<a class="page-link" th:href="@{'/user/view-contacts/page/' + ${pageNo+1}}">Next</a>
+				</li>
+			</ul>
+			
+			<!-- unless -->
+			<a class="btn btn-success m-auto d-block" style="width:fit-content" th:unless="${#lists.size(contacts) > 0}" th:href="@{'/user/view-contacts/page/1'}">First Page</a>
+			
+		</nav>
+
+	</section>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="user/base::layout(~{::title}, ~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>Update This contact</title>
+</head>
+<body>
+	
+	<section class="py-4">		
+		<form enctype="multipart/form-data" th:action="@{/user/updatenow}" method="post" th:object="${contact}" class="col-lg-7 col-sm-12 m-auto border p-4">
+			<h1 class="text-center my-4">Update Contact</h1>
+			
+				<!-- server message will show here -->
+				<th:block th:if="${serverMessage}">
+					<div class="alert " role="alert" th:classappend="${serverMessage.css}" th:text="${serverMessage.content}">				  
+					</div>
+				</th:block>
+			
+				<!-- contact name -->
+				<div class=" form-group my-3 py-1">				
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<div class="input-group-text"><i class="fa fa-user-plus" aria-hidden="true"></i></div>
+						</div>
+						<input th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}" th:value="${contact.name}" name="name" type="text" class="form-control" placeholder="Contact Name">
+						<th:block th:if="${#fields.hasErrors()}">
+							<small
+								th:each="err : ${#fields.errors('name')}" 
+								th:text="${err}"
+								th:classappend="invalid-feedback"
+							>							
+							</small>
+						</th:block>
+					</div>					
+				</div>
+
+				<!-- phone number-->
+				<div class=" form-group my-3 py-1">				
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<div class="input-group-text"><i class="fa fa-phone" aria-hidden="true"></i></div>
+						</div>
+						<input th:classappend="${#fields.hasErrors('phone') ? 'is-invalid' : ''}" th:value="${contact.phone}" name="phone" type="text" class="form-control" placeholder="Enter your phone">
+						<th:block th:if="${#fields.hasErrors()}">
+							<small
+								th:each="err : ${#fields.errors('phone')}" 
+								th:text="${err}"
+								th:classappend="invalid-feedback"
+							>							
+							</small>
+						</th:block>
+					</div>
+	
+				</div>
+
+				<!-- Email -->
+				<div class=" form-group my-3 py-1">				
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+						</div>
+						<input th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}" th:value="${contact.email}" name="email" type="text" class="form-control" placeholder="Enter your Email">
+						<th:block th:if="${#fields.hasErrors()}">
+							<small
+								th:each="err : ${#fields.errors('email')}" 
+								th:text="${err}"
+								th:classappend="invalid-feedback"
+							>							
+							</small>
+						</th:block>
+					</div>
+				</div>
+				
+				
+				<!-- WORK PLACE -->
+				<div class=" form-group my-3 py-1">				
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<div class="input-group-text"><i class="fa fa-map-marker" aria-hidden="true"></i></div>
+						</div>
+						<input th:classappend="${#fields.hasErrors('work_place') ? 'is-invalid' : ''}" th:value="${contact.work_place}" name="work_place" type="text" class="form-control" placeholder="Work place location">
+						<th:block th:if="${#fields.hasErrors()}">
+							<small
+								th:each="err : ${#fields.errors('work_place')}" 
+								th:text="${err}"
+								th:classappend="invalid-feedback"
+							>							
+							</small>
+						</th:block>
+					</div>
+				</div>
+
+
+				<!-- contact image -->
+				<div class=" form-group my-3 py-1">					
+					<label for="">Select your Image</label>				
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<div class="input-group-text"><i class="fa fa-picture-o" aria-hidden="true"></i></div>
+						</div>
+						<input name="contact_image"  type="file" class="form-control" placeholder="Work place location">
+						<!-- <th:block th:if="${#fields.hasErrors('contact_image')}">
+							<small>error msg</small>
+						</th:block> -->
+					</div>
+				</div>
+				
+				<!-- description about Contact -->
+				<div class=" form-group my-3 py-1">					
+					<textarea id="myTextArea" th:classappend="${#fields.hasErrors('description') ? 'is-invalid' : ''}" th:text="${contact.description}" name="description" placeholder="Write something about contact..." class="form-control" rows="5" cols="">
+					
+					</textarea>
+					<th:block th:if="${#fields.hasErrors()}">
+						<small
+							th:each="err : ${#fields.errors('description')}" 
+							th:text="${err}"
+							th:classappend="invalid-feedback"
+						>							
+						</small>
+					</th:block>	
+				</div>
+
+
+				<!--  -->
+				<div class="form-group form-check">
+					<input type="checkbox" class="form-check-input" id="exampleCheck1">
+					<label class="form-check-label" for="exampleCheck1">Check
+						me out</label>
+				</div>
+				<button type="submit" class="btn btn-lg w-100 btn-primary">Update Contact</button>
+			</form>		
+			
+			<script src="https://cdn.tiny.cloud/1/79i3sfuqhxjz62c4epiaxpcr0ej5gcoof7seh7lqhr4m0qse/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+			<script>
+		    tinymce.init({
+		      selector: '#myTextArea',
+		      plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+		      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+		      tinycomments_mode: 'embedded',
+		      tinycomments_author: 'Author name',
+		      mergetags_list: [
+		        { value: 'First.Name', title: 'First Name' },
+		        { value: 'Email', title: 'Email' },
+		      ]
+		    });
+		  </script>
+	</section>
+	
+	
+	
+</body>
+</html>
