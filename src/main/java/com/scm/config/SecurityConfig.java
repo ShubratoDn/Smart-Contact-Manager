@@ -55,11 +55,15 @@ public class SecurityConfig{
 		 
 		 http.cors().and().csrf().disable()
 		 .authorizeHttpRequests(auth ->
-				 	auth.
-				 	requestMatchers("/admin/**").hasRole("ADMIN")
-					.requestMatchers("/user/**").hasRole("USER")
+				 	auth
+//				 	.requestMatchers("/admin/**").hasRole("ADMIN")
+//					.requestMatchers("/user/**").hasRole("USER")
 					.requestMatchers("/signin").anonymous() //login thakle access korte parbe na
-					.requestMatchers("/**").permitAll())
+		//			.requestMatchers("/**").permitAll()
+				 	.requestMatchers("/").permitAll()
+							.requestMatchers("/signup").permitAll()
+							.anyRequest().authenticated()
+		 )
 		 .logout().logoutUrl("/signout").logoutSuccessUrl("/signin?logout")
 		 .and()
 		 .formLogin()
